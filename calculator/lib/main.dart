@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'buttons.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,6 +14,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
+class HomePage extends StatelessWidget {
+  HomePage({Key key, this.title}) : super(key: key);
+  String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(
+          title: Text(title),
+        ),
+
+        body: Buttons(),
+    );
+  }
+}
+
+/*
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -42,7 +61,7 @@ class _LandingPage extends State<HomePage> {
         body: Container(color: Colors.amber, height: 100, width: 100));
   }
 }
-
+*/
 /*
 GridView.count(
 			crossAxisCount: 4,
