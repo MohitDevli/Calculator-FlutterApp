@@ -63,7 +63,7 @@ class _ButtonsState extends State<Buttons> {
                   
                   if (expression != '') {
                     setState(() {
-                      expression = evaluate();
+                      expression = "="+evaluate();
                     });
                   }
                 },
