@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'buttons.dart';
+import 'MainPage.dart';
 
 void main() => runApp(MyApp());
 
