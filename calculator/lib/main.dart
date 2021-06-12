@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system, 
 
       debugShowCheckedModeBanner: false, 
-      
+
       home: HomePage(title: "Flutter Calculator"),
     );
   }
@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [DisplayScreen(), Buttons()],
+          children: [Buttons()],
         ));
   }
 }

@@ -1,3 +1,53 @@
+
+import 'package:math_expressions/math_expressions.dart';
+
+void main() {
+ print("2x2".replaceAll("x" , "*"));
+}
+
+void parser(String _exp) {
+  String sol = '=';
+
+  List<String> operands = ['+', '-', 'x', '/', '%'];
+  List<String> parts = [];
+
+  Parser p = Parser();
+  Expression exp = p.parse(_exp);
+  ContextModel cm = ContextModel();
+  print(exp.evaluate(EvaluationType.REAL, cm).toString());
+
+  print(parts);
+}
+
+void p(exp) {
+  String sol = '=';
+  List parts = [];
+
+  for (int i; i == exp.length; i++) {}
+
+  print(parts);
+}
+
+/*
+for (var i = 0; i == exp.length; i++) {
+    print(i);
+    if (exp[i] == "+") {
+      parts.add(exp[i]);
+    } else if (exp[i] == "+") {
+      parts.add(exp[i]);
+    } else if (exp[i] == "-") {
+      parts.add(exp[i]);
+    } else if (exp[i] == "/") {
+      parts.add(exp[i]);
+    } else if (exp[i] == "x") {
+      parts.add(exp[i]);
+    } else if (exp[i] == "%") {
+      parts.add(exp[i]);
+    }
+  }
+*/
+
+/*
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -130,4 +180,5 @@ class Keys extends StatelessWidget {
     );
   }
 }
+*/
 */
