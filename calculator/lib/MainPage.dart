@@ -20,99 +20,128 @@ class _ButtonsState extends State<Buttons> {
     return exp.evaluate(EvaluationType.REAL, cm).toString();
   }
 
+  int _width = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+      // Display
       Container(
         alignment: Alignment.bottomRight,
         child: Text(expression, style: TextStyle(fontSize: 45)),
       ),
-      GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 4,
-          childAspectRatio: MediaQuery.of(context).size.width /
-              (MediaQuery.of(context).size.height / 3),
-          children: List.generate(btnList.length, ([index]) {
-            if (btnList[index].title == "C") {
-              return FlatButton(
-                child: Text(
-                  btnList[index].title,
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: btnList[index].color,
-                      fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
-                  if (expression != '') {
-                    setState(() {
-                      expression = '';
-                    });
-                  }
-                },
-              );
-            } else if (btnList[index].title == "=") {
-              return FlatButton(
-                child: Text(
-                  btnList[index].title,
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: btnList[index].color,
-                      fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
-                  
-                  if (expression != '') {
-                    setState(() {
-                      expression = "="+evaluate();
-                    });
-                  }
-                },
-              );
-            } else if (btnList[index].iconReq == false) {
-              return FlatButton(
-                child: Text(
-                  btnList[index].title,
-                  style: TextStyle(
-                      fontSize: 25,
-                      color: btnList[index].color,
-                      fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {
-                  setState(() {
-                    expression += btnList[index].title;
-                  });
-                },
-              );
-            } else if (btnList[index].title == "BA") {
-              return IconButton(
-                icon: Icon(
-                  btnList[index].icon,
-                  color: Colors.orange,
-                ),
-                onPressed: () {
-                  if (expression != '') {
-                    setState(() {
-                      expression =
-                          expression.substring(0, expression.length - 1);
-                    });
-                  }
-                  ;
-                },
-              );
-            } else {
-              return IconButton(
-                icon: Icon(
-                  btnList[index].icon,
-                  color: Colors.orange,
-                ),
-                onPressed: () {
-                  setState(() {
-                    expression += btnList[index].title;
-                  });
-                },
-              ); //;
-            }
-          }))
+      Align(
+          alignment: Alignment.bottomRight,
+          child: AnimatedContainer(
+              duration: Duration(seconds: 1),
+              curve: Curves.fastLinearToSlowEaseIn,
+              height: null, //(MediaQuery.of(context).size.height / 3),
+              width: (MediaQuery.of(context).size.width - _width),
+              child: GridView.count(
+                  shrinkWrap: true,
+                  crossAxisCount: 4,
+                  childAspectRatio: (MediaQuery.of(context).size.width) /
+                      (MediaQuery.of(context).size.height / 3),
+                  children: List.generate(btnList.length, ([index]) {
+                    if (btnList[index].title == "op") {
+                      return IconButton(
+                        icon: Icon(
+                          btnList[index].icon,
+                          color: Colors.orange,
+                        ),
+                        onPressed: () {
+                          if (_width == 0) {
+                            setState(() {
+                              _width = 50;
+                            });
+                          } else {
+                            setState(() {
+                              _width = 0;
+                            });
+                          }
+
+                          ;
+                        },
+                      );
+                    } else if (btnList[index].title == "C") {
+                      return FlatButton(
+                        child: Text(
+                          btnList[index].title,
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: btnList[index].color,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          if (expression != '') {
+                            setState(() {
+                              expression = '';
+                            });
+                          }
+                        },
+                      );
+                    } else if (btnList[index].title == "=") {
+                      return FlatButton(
+                        child: Text(
+                          btnList[index].title,
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: btnList[index].color,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          if (expression != '') {
+                            setState(() {
+                              expression = "=" + evaluate();
+                            });
+                          }
+                        },
+                      );
+                    } else if (btnList[index].iconReq == false) {
+                      return FlatButton(
+                        child: Text(
+                          btnList[index].title,
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: btnList[index].color,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            expression += btnList[index].title;
+                          });
+                        },
+                      );
+                    } else if (btnList[index].title == "BA") {
+                      return IconButton(
+                        icon: Icon(
+                          btnList[index].icon,
+                          color: Colors.orange,
+                        ),
+                        onPressed: () {
+                          if (expression != '') {
+                            setState(() {
+                              expression = expression.substring(
+                                  0, expression.length - 1);
+                            });
+                          }
+                          ;
+                        },
+                      );
+                    } else {
+                      return IconButton(
+                        icon: Icon(
+                          btnList[index].icon,
+                          color: Colors.orange,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            expression += btnList[index].title;
+                          });
+                        },
+                      ); //;
+                    }
+                  }))))
     ]);
   }
 }
@@ -147,7 +176,7 @@ const List<BtnList> btnList = const <BtnList>[
   const BtnList(title: '3', icon: null, iconReq: false, color: null),
   const BtnList(title: '+', icon: null, iconReq: false, color: Colors.orange),
   const BtnList(
-      title: null, icon: Icons.apps, iconReq: true, color: Colors.orange),
+      title: "op", icon: Icons.apps, iconReq: true, color: Colors.orange),
   const BtnList(title: '0', icon: null, iconReq: false, color: null),
   const BtnList(title: '.', icon: null, iconReq: false, color: Colors.orange),
   const BtnList(title: '=', icon: null, iconReq: false, color: Colors.orange),
